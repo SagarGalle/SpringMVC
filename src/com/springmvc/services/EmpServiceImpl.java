@@ -1,4 +1,4 @@
-package com.beingjavaguys.services;
+package com.springmvc.services;
 
 import java.util.List;
 
