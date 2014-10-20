@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springmvc.domain.Employee;
-import com.springmvc.services.DataService;
+import com.springmvc.services.EmpService;
 
 @Controller
 public class EmpController {
 	
 	@Autowired
-	DataService dataService;
+	EmpService empService;
 
 	@RequestMapping("form")
 	public ModelAndView getForm(@ModelAttribute Employee employee) {
@@ -25,31 +25,31 @@ public class EmpController {
 	
 	@RequestMapping("register")
 	public ModelAndView registerUser(@ModelAttribute Employee employee) {
-		dataService.insertRow(employee);
+		empService.insertRow(employee);
 		return new ModelAndView("redirect:list");
 	}
 	
 	@RequestMapping("list")
 	public ModelAndView getList() {
-		List employeeList = dataService.getList();
+		List employeeList = empService.getList();
 		return new ModelAndView("list","employeeList",employeeList);
 	}
 	
 	@RequestMapping("delete")
 	public ModelAndView deleteUser(@RequestParam int id) {
-		dataService.deleteRow(id);
+		empService.deleteRow(id);
 		return new ModelAndView("redirect:list");
 	}
 	
 	@RequestMapping("edit")
 	public ModelAndView editUser(@RequestParam int id,@ModelAttribute Employee employee) {
-		Employee employeeObject = dataService.getRowById(id);
+		Employee employeeObject = empService.getRowById(id);
 		return new ModelAndView("edit","employeeObject",employeeObject);
 	}
 	
 	@RequestMapping("update")
 	public ModelAndView updateUser(@ModelAttribute Employee employee) {
-		dataService.updateRow(employee);
+		empService.updateRow(employee);
 		return new ModelAndView("redirect:list");
 	}
 
